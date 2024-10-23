@@ -33,9 +33,13 @@ public class HomeView extends VerticalLayout {
 
         var button = new Button("Traduzir", VaadinIcon.ARROW_RIGHT.create());
         button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        //defina aqui o comportamento do botão de tradução
-        //ele deve chamar o service passando o texto original e o estilo selecionado
-
+        button.addClickListener(e -> {
+            String originalText = originalTextArea.getValue();
+            String selectedStyle = selectStyle.getValue();
+            String translatedText = naviService.translate(originalText, selectedStyle);
+            translatedTextArea.setValue(translatedText);
+        });
+        
         add(new H1("Navi"));
         add(new Paragraph("Tradutor de textos universais"));
         add(split);

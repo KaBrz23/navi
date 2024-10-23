@@ -13,7 +13,15 @@ public class NaviService {
     }
 
     public String translate(String text, String style) {
-        // altere o retornar para char a AI generativa para realizar a tradução de acordo com o estilo
-        return text;
+        return chatClient
+                .prompt()
+                .user(text)
+                .system(String.format("""
+                    Você é um tradutor de textos.
+                    Traduza o texto com o estilo \"%s\".
+                    Mantenha a clareza e a simplicidade.
+                    """, style))
+                .call()
+                .content();
     }
 }
